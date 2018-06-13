@@ -28,8 +28,8 @@ impl RGB {
                   let (rp, gp, bp) = RGB::normalize(&self);
                   match RGB::max(&self) {
                     Index::Zero => 60.0 * (((gp - bp) / delta) % 6.0), // R' is biggest
-                    Index::One => 60.0 * (((bp - rp) / delta) + 2), // G' is biggest
-                    Index::Two => 60.0 * (((rp - gp) / delta) + 4), // B' is biggest
+                    Index::One => 60.0 * (((bp - rp) / delta) + 2.0), // G' is biggest
+                    Index::Two => 60.0 * (((rp - gp) / delta) + 4.0), // B' is biggest
                   }
                 }
               };
