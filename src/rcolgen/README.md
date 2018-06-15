@@ -11,8 +11,8 @@ pub fn convert() -> RGB
 pub fn convert() -> HSV
 Converts from HSV to RGB or vice versa.
 
-pub fn print()
-Prints out the color.
+pub fn print() -> String
+Returns a string of the color.
 
 # Available methods of generation
 

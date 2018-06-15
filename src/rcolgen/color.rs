@@ -63,43 +63,7 @@ impl RGB {
   }
 
   pub fn print(&self) -> String {
-    let conv = |x: u8| {
-      let mut d1 = 0;
-      while (d1 < x) {
-        d1 += 16;
-      }
-      d1 -= 16;
-      let d2 = x - d1;
-      d1 /= 16;
-
-      let hexmake = |x: u8| {
-        let s = match x {
-          0 => String::from("0"),
-          1 => String::from("1"),
-          2 => String::from("2"),
-          3 => String::from("3"),
-          4 => String::from("4"),
-          5 => String::from("5"),
-          6 => String::from("6"),
-          7 => String::from("7"),
-          8 => String::from("8"),
-          9 => String::from("9"),
-          10 => String::from("A"),
-          11 => String::from("B"),
-          12 => String::from("C"),
-          13 => String::from("D"),
-          14 => String::from("E"),
-          15 => String::from("F"),
-          _ => String::from("X"), // error handling
-        };
-        return s;
-      };
-
-      let s = hexmake(d1) + &hexmake(d2);
-      return s;
-    };
-
-    let string = String::from("#") + &conv(self.0) + &conv(self.1) + &conv(self.2);
+    let string = String::from("#") + &hex_conv(self.0) + &hex_conv(self.1) + &hex_conv(self.2);
     string
   }
 
@@ -138,4 +102,45 @@ impl HSV {
               },
     }
   }
+
+  pub fn print(&self) -> String { // returns string of the color
+    let string = format!("({}, {}, {})", self.0, self.1, self.2);
+    string
+  }
+}
+
+pub fn hex_conv(x: u8) -> String { // converts to hex, requires testing
+  let mut d1 = 0;
+  while d1 < x {
+    d1 += 16;
+  }
+  d1 -= 16;
+  let d2 = x - d1; // calculates ones digit
+  d1 /= 16; // calculates sixteens (second) digit
+
+  let hexmake = |x: u8| { // converts digit to hex
+    let s = match x {
+      0 => String::from("0"),
+      1 => String::from("1"),
+      2 => String::from("2"),
+      3 => String::from("3"),
+      4 => String::from("4"),
+      5 => String::from("5"),
+      6 => String::from("6"),
+      7 => String::from("7"),
+      8 => String::from("8"),
+      9 => String::from("9"),
+      10 => String::from("A"),
+      11 => String::from("B"),
+      12 => String::from("C"),
+      13 => String::from("D"),
+      14 => String::from("E"),
+      15 => String::from("F"),
+      _ => String::from("X"), // error handling
+    };
+    return s;
+  };
+
+  let s = hexmake(d1) + &hexmake(d2);
+  s
 }
