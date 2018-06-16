@@ -109,8 +109,11 @@ impl HSV {
   }
 }
 
-pub fn hex_conv(x: u8) -> String { // converts to hex, requires testing
-  let mut d1 = 0;
+pub fn hex_conv(arg: u8) -> String { // converts to hex, requires testing
+  // error checking for nums outside of 0-255 don't need to be included here, because
+  // they can't fit in u8
+  let mut d1: u16 = 0;
+  let x: u16 = arg.into(); // coerce both d1 and x to u16 to give room for arg=255 case
   while d1 < x {
     d1 += 16;
   }
@@ -118,8 +121,8 @@ pub fn hex_conv(x: u8) -> String { // converts to hex, requires testing
   let d2 = x - d1; // calculates ones digit
   d1 /= 16; // calculates sixteens (second) digit
 
-  let hexmake = |x: u8| { // converts digit to hex
-    let s = match x {
+  let hexmake = |x: u16| { // converts digit to hex
+    match x {
       0 => String::from("0"),
       1 => String::from("1"),
       2 => String::from("2"),
@@ -137,10 +140,9 @@ pub fn hex_conv(x: u8) -> String { // converts to hex, requires testing
       14 => String::from("E"),
       15 => String::from("F"),
       _ => String::from("X"), // error handling
-    };
-    return s;
+    }
   };
 
   let s = hexmake(d1) + &hexmake(d2);
-  s
+  return s;
 }

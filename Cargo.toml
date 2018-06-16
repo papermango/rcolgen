@@ -1,5 +1,5 @@
 [package]
-name = "palettegenerator"
+name = "rcolgen"
 version = "0.1.0"
 authors = ["parth"]
 

@@ -23,10 +23,7 @@ of colors may be implemented in the future.
 
 Parameters:
 + *offset* - the amount to differ the shades by hue
-+ *shake* - maximum degree of randomization of saturation [TODO]
 + *color* - starting color
 
 Offsets each generated color from *color* so each generated shade is at most
-*offset* from *color.* The distribution of the offset will be even. *shake* is
-intended to be the maximum amount to randomly alter the saturation of each
-generated shade.
+*offset* from *color.* The distribution of the offset will be even.
