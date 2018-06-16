@@ -109,15 +109,17 @@ impl HSV {
   }
 }
 
-pub fn hex_conv(arg: u8) -> String { // converts to hex, requires testing
+pub fn hex_conv(arg: u8) -> String { // converts to hex
   // error checking for nums outside of 0-255 don't need to be included here, because
   // they can't fit in u8
   let mut d1: u16 = 0;
-  let x: u16 = arg.into(); // coerce both d1 and x to u16 to give room for arg=255 case
-  while d1 < x {
+  let x: u16 = arg.into(); // coerce x to u16 to give room for arg=255 edge case
+  while d1 <= x {
     d1 += 16;
   }
-  d1 -= 16;
+  if d1 > 0 { // accounts for edge case of <16
+    d1 -= 16;
+  }
   let d2 = x - d1; // calculates ones digit
   d1 /= 16; // calculates sixteens (second) digit
 
@@ -139,10 +141,9 @@ pub fn hex_conv(arg: u8) -> String { // converts to hex, requires testing
       13 => String::from("D"),
       14 => String::from("E"),
       15 => String::from("F"),
-      _ => String::from("X"), // error handling
+      _ => String::from("X"), // catchall statement, should never be returned
     }
   };
 
-  let s = hexmake(d1) + &hexmake(d2);
-  return s;
+  hexmake(d1) + &hexmake(d2)
 }
